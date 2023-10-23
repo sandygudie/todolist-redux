@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function Progressbar(props: {
   completed: number;
   todoslength: number;
@@ -17,7 +15,7 @@ export default function Progressbar(props: {
     width: `${(completed / todoslength) * 100}%`,
     backgroundColor: "yellow",
     borderRadius: "inherit",
-    textAlign: "right",
+    // textAlign: "right",
   };
 
   const labelStyles = {
