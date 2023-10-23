@@ -23,14 +23,14 @@ export default function Progressbar(props: {
   const labelStyles = {
     padding: 5,
     color: "black",
-    fontWeight: "bold",
+    fontWeight: "semiBold",
   };
 
   return (
     <div className="relative" style={containerStyles}>
       <div style={fillerStyles}>
         <span style={labelStyles} className="absolute  text-sm left-10">
-          {`${completed}`} of {todoslength} tasks done{" "}
+       <span className="font-bold">   {`${completed}`} </span>of <span className="font-bold"> {todoslength}</span> tasks done{" "}
         </span>
       </div>
     </div>
