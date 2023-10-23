@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Todo} from "../types";
+import { Todo } from "../types";
 
 const initialState = [] as Todo[];
 const todoSlice = createSlice({
@@ -14,17 +14,17 @@ const todoSlice = createSlice({
       };
       state.push(newTodo);
     },
-   editTodo: (state, action) => {
+    editTodo: (state, action) => {
 
-      const todo = state.find((todo) => todo.id === action.payload.editItemId );
+      const todo = state.find((todo) => todo.id === action.payload.editItemId);
       if (todo) {
         todo.text = action.payload.text;
       }
-     
-      return state
+      console.log(state)
+return {...state,todo}
+    
     },
     toggleComplete: (state, action) => {
-   
       const todo = state.find((todo) => todo.id === action.payload);
       if (todo) {
         todo.completed = !todo.completed;
@@ -38,5 +38,6 @@ const todoSlice = createSlice({
     },
   },
 });
-export const { addTodo, editTodo, toggleComplete, deleteTodo } = todoSlice.actions;
+export const { addTodo, editTodo, toggleComplete, deleteTodo } =
+  todoSlice.actions;
 export default todoSlice.reducer;

@@ -8,6 +8,7 @@ import {
 } from "./redux/todoSlice";
 import { RootState } from "./redux/store";
 import { MdModeEditOutline, MdClose } from "react-icons/md";
+import { TiTickOutline } from "react-icons/ti";
 import ProgressBar from "./components/Progressbar";
 
 const Todo = () => {
@@ -37,6 +38,7 @@ const Todo = () => {
     setEditedText(event.target.value);
     dispatch(editTodo({ editedText, editItemId }));
   };
+
   const handleBlur = () => {
     setIsEditing(false);
   };
@@ -82,7 +84,7 @@ const Todo = () => {
         {" "}
         {todos.map((todo, i) => (
           <li key={todo.id}>
-            <button
+            <div
               onClick={() => handleToggleComplete(todo.id)}
               className={`${
                 i >= 1 ? "border-t-0" : "border-t-2"
@@ -93,6 +95,7 @@ const Todo = () => {
                   type="checkbox"
                   className="p-5"
                   checked={todo.completed}
+                  readOnly
                 />
                 <p
                   style={{
@@ -113,22 +116,28 @@ const Todo = () => {
                 </p>
               </div>
               <div className="flex items-center gap-6 justify-center">
-                <button>
-                  <MdModeEditOutline
-                    onClick={() => handleEditTodo(todo.id)}
-                    className="text-primary text-2xl"
-                  />
-                </button>
+                {isEditing ? (
+                  <button>
+                    <TiTickOutline className="text-primary text-2xl" />
+                  </button>
+                ) : (
+                  <button>
+                    <MdModeEditOutline
+                      onClick={() => handleEditTodo(todo.id)}
+                      className="text-primary text-2xl"
+                    />
+                  </button>
+                )}
                 <button onClick={() => handleDeleteTodo(todo.id)}>
                   <MdClose className="text-primary text-2xl" />
                 </button>
               </div>
-            </button>
+            </div>
           </li>
         ))}{" "}
       </ul>{" "}
       <div className="flex items-center gap-5 my-4 justify-between">
-        <ProgressBar todoslength={todos.length}completed={tasksDone} />
+        <ProgressBar todoslength={todos.length} completed={tasksDone} />
 
         <button className="bg-primary justify-center flex items-center py-1 w-full text-base text-white">
           Removed checked <MdClose className="text-white text-xl" />
