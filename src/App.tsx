@@ -121,7 +121,7 @@ const Todo = () => {
                 </p>
               </div>
               <div className="flex items-center gap-6 justify-center">
-                {isEditing ? (
+                {isEditing && editItemId === todo.id? (
                   <button>
                     <TiTickOutline
                       onClick={() => handleUpdatedTodo()}
