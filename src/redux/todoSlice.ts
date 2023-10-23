@@ -22,7 +22,16 @@ const todoSlice = createSlice({
 
     },
     removedChecked: (state, action) => {
-      state.filter((todo) => todo.completed !== action.payload);
+      
+     for(let i = 0; i < state.length; i++){
+    const ArrIndex = state.findIndex(
+      (todo) => todo.completed === action.payload
+    );
+      if(ArrIndex > -1){
+          state.splice(ArrIndex, 1);
+      }        
+  }
+   
     },
     toggleComplete: (state, action) => {
       const todo = state.find((todo) => todo.id === action.payload);
