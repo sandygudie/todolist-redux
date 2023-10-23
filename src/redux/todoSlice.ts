@@ -15,14 +15,20 @@ const todoSlice = createSlice({
       state.push(newTodo);
     },
     editTodo: (state, action) => {
-
-      const todo = state.find((todo) => todo.id === action.payload.editItemId);
-      if (todo) {
-        todo.text = action.payload.text;
+      const updatedTodo = {
+        id: action.payload.editItemId,
+        text: action.payload.text,
+        completed: false,
+      };
+      const todoIndex = state.findIndex(
+        (todo) => todo.id === action.payload.editItemId
+      );
+      if (todoIndex) {
+        state.splice(todoIndex, 1, updatedTodo);
       }
-      console.log(state)
-return {...state,todo}
-    
+    },
+    removedChecked: (state, action) => {
+      state.filter((todo) => todo.completed !== action.payload);
     },
     toggleComplete: (state, action) => {
       const todo = state.find((todo) => todo.id === action.payload);
@@ -38,6 +44,6 @@ return {...state,todo}
     },
   },
 });
-export const { addTodo, editTodo, toggleComplete, deleteTodo } =
+export const { addTodo, editTodo, removedChecked, toggleComplete, deleteTodo } =
   todoSlice.actions;
 export default todoSlice.reducer;

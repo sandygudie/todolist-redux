@@ -5,6 +5,7 @@ import {
   editTodo,
   toggleComplete,
   deleteTodo,
+  removedChecked,
 } from "./redux/todoSlice";
 import { RootState } from "./redux/store";
 import { MdModeEditOutline, MdClose } from "react-icons/md";
@@ -36,9 +37,10 @@ const Todo = () => {
     target: { value: SetStateAction<string> };
   }) => {
     setEditedText(event.target.value);
+  };
+  const handleUpdatedTodo = () => {
     dispatch(editTodo({ editedText, editItemId }));
   };
-
   const handleBlur = () => {
     setIsEditing(false);
   };
@@ -54,6 +56,9 @@ const Todo = () => {
 
   const handleDeleteTodo = (id: number) => {
     dispatch(deleteTodo(id));
+  };
+  const handleClearedCheckedTodo = () => {
+    dispatch(removedChecked(true));
   };
   const tasksDone = todos.reduce((counter, obj) => {
     if (obj.completed === true) counter += 1;
@@ -118,7 +123,10 @@ const Todo = () => {
               <div className="flex items-center gap-6 justify-center">
                 {isEditing ? (
                   <button>
-                    <TiTickOutline className="text-primary text-2xl" />
+                    <TiTickOutline
+                      onClick={() => handleUpdatedTodo()}
+                      className="text-primary text-2xl"
+                    />
                   </button>
                 ) : (
                   <button>
@@ -139,7 +147,10 @@ const Todo = () => {
       <div className="flex items-center gap-5 my-4 justify-between">
         <ProgressBar todoslength={todos.length} completed={tasksDone} />
 
-        <button className="bg-primary justify-center flex items-center py-1 w-full text-base text-white">
+        <button
+          onClick={() => handleClearedCheckedTodo()}
+          className="bg-primary justify-center flex items-center py-1 w-full text-base text-white"
+        >
           Removed checked <MdClose className="text-white text-xl" />
         </button>
       </div>
