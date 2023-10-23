@@ -32,7 +32,7 @@ const Todo = () => {
   };
 
   return (
-    <main className="bg-white w-[36rem] h-64 px-12 py-4">
+    <main className="bg-white w-[36rem] h-auto px-12 py-4">
       <h1 className="text-center text-3xl pb-2 text-primary font-bold">
         TODOLIST
       </h1>
