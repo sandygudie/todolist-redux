@@ -19,7 +19,7 @@ const Todo = () => {
   const [editItemId, setEditItemId] = useState(0);
   const todos = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
-  console.log(todos);
+
   const handleInputChange = (e: {
     target: { value: SetStateAction<string> };
   }) => {
@@ -40,10 +40,9 @@ const Todo = () => {
   };
   const handleUpdatedTodo = () => {
     dispatch(editTodo({ editedText, editItemId }));
-  };
-  const handleBlur = () => {
     setIsEditing(false);
   };
+
   const handleEditTodo = (id: number) => {
     const seletedItem = todos.find((item) => item.id === id)!;
     setEditItemId(seletedItem.id);
@@ -90,7 +89,7 @@ const Todo = () => {
         {todos.map((todo, i) => (
           <li key={todo.id}>
             <div
-              onClick={() => handleToggleComplete(todo.id)}
+              //
               className={`${
                 i >= 1 ? "border-t-0" : "border-t-2"
               } flex px-4 py-2 border-y-2 border-gray/10 hover:bg-primary/10 w-full items-center justify-between`}
@@ -101,6 +100,7 @@ const Todo = () => {
                   className="p-5"
                   checked={todo.completed}
                   readOnly
+                  onChange={() => handleToggleComplete(todo.id)}
                 />
                 <p
                   style={{
@@ -113,7 +113,7 @@ const Todo = () => {
                       type="text"
                       value={editedText}
                       onChange={handleEditChange}
-                      onBlur={handleBlur}
+                      className="border-2 py-0.5 px-2"
                     />
                   ) : (
                     <span>{todo.text}</span>
@@ -121,19 +121,13 @@ const Todo = () => {
                 </p>
               </div>
               <div className="flex items-center gap-6 justify-center">
-                {isEditing && editItemId === todo.id? (
-                  <button>
-                    <TiTickOutline
-                      onClick={() => handleUpdatedTodo()}
-                      className="text-primary text-2xl"
-                    />
+                {isEditing && editItemId === todo.id ? (
+                  <button onClick={() => handleUpdatedTodo()}>
+                    <TiTickOutline className="text-primary text-2xl" />
                   </button>
                 ) : (
-                  <button>
-                    <MdModeEditOutline
-                      onClick={() => handleEditTodo(todo.id)}
-                      className="text-primary text-2xl"
-                    />
+                  <button onClick={() => handleEditTodo(todo.id)}>
+                    <MdModeEditOutline className="text-primary text-2xl" />
                   </button>
                 )}
                 <button onClick={() => handleDeleteTodo(todo.id)}>

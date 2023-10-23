@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 import { Todo } from "../types";
 
 const initialState = [] as Todo[];
@@ -15,17 +15,11 @@ const todoSlice = createSlice({
       state.push(newTodo);
     },
     editTodo: (state, action) => {
-      const updatedTodo = {
-        id: action.payload.editItemId,
-        text: action.payload.text,
-        completed: false,
-      };
       const todoIndex = state.findIndex(
         (todo) => todo.id === action.payload.editItemId
       );
-      if (todoIndex) {
-        state.splice(todoIndex, 1, updatedTodo);
-      }
+      state[todoIndex].text = action.payload.editedText;
+
     },
     removedChecked: (state, action) => {
       state.filter((todo) => todo.completed !== action.payload);
