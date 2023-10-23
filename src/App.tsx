@@ -47,6 +47,7 @@ const Todo = () => {
     const seletedItem = todos.find((item) => item.id === id)!;
     setEditItemId(seletedItem.id);
     setIsEditing(true);
+    setEditedText("");
   };
 
   const handleToggleComplete = (id: number) => {
@@ -111,7 +112,7 @@ const Todo = () => {
                   {isEditing && editItemId === todo.id ? (
                     <input
                       type="text"
-                      value={editedText}
+                      value={editedText ? editedText : todo.text}
                       onChange={handleEditChange}
                       className="border-2 py-0.5 px-2"
                     />

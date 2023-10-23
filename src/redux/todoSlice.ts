@@ -1,4 +1,4 @@
-import { createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { Todo } from "../types";
 
 const initialState = [] as Todo[];
@@ -19,19 +19,16 @@ const todoSlice = createSlice({
         (todo) => todo.id === action.payload.editItemId
       );
       state[todoIndex].text = action.payload.editedText;
-
     },
     removedChecked: (state, action) => {
-      
-     for(let i = 0; i < state.length; i++){
-    const ArrIndex = state.findIndex(
-      (todo) => todo.completed === action.payload
-    );
-      if(ArrIndex > -1){
+      for (let i = 0; i < state.length; i++) {
+        const ArrIndex = state.findIndex(
+          (todo) => todo.completed === action.payload
+        );
+        if (ArrIndex > -1) {
           state.splice(ArrIndex, 1);
-      }        
-  }
-   
+        }
+      }
     },
     toggleComplete: (state, action) => {
       const todo = state.find((todo) => todo.id === action.payload);
